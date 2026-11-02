@@ -44,26 +44,32 @@ const FOV_CHANGE = 1.5
 
 # Devran's addition here: func _ready
 func _ready():	
-	# process_mode = PROCESS_MODE_ALWAYS # Player node will always be processed even if game paused. [disabled because the player does not need to move when dead, and the pause menu serves as a restarter for levels.
-	
-	# Wait for level scene to finish loading
-	await get_tree().process_frame
-	
-	# Get level environment
-	var level_env = camera.get_viewport().get_camera_3d().get_environment()
-	if level_env:
-		# Duplicate it to protect level environment
-		camera.environment = level_env.duplicate()
-	else:
-		# Fallback for levels without an environment setup.
-		camera.environment = Environment.new()
-		
-	camera.environment.adjustment_enabled = true
-	camera.environment.adjustment_saturation = 1.0
-	
 	# Init healthbar
 	bar_health.max_value = 200.0
 	bar_health.value = health
+	
+	# Wait for level scene to finish loading completely
+	await get_tree().process_frame
+	
+	# 1. Look for a WorldEnvironment node in the main level scene
+	var world_env_node = get_tree().current_scene.find_child("WorldEnvironment", true, false)
+	
+	if world_env_node and world_env_node.environment:
+		# Duplicate the level's actual environment so adjustments don't permanently alter the original resource file
+		camera.environment = world_env_node.environment.duplicate()
+	else:
+		# Fallback if the level genuinely does not have a WorldEnvironment node
+		camera.environment = Environment.new()
+		# Give the fallback environment a default procedural sky so it isn't pitch black
+		camera.environment.background_mode = Environment.BG_SKY
+		var sky_res = Sky.new()
+		sky_res.sky_material = ProceduralSkyMaterial.new()
+		camera.environment.sky = sky_res
+		
+	# Enable color adjustments for your low-health greyscale effect
+	camera.environment.adjustment_enabled = true
+	camera.environment.adjustment_saturation = 1.0
+
 
 func _unhandled_input(event):
 	# Lock the mouse to the camera so that we can look around (new method)

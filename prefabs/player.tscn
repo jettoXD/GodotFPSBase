@@ -191,15 +191,18 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_u51tk")
 text = "Reload Map"
 
 [node name="Button3" type="Button" parent="PauseMenu" unique_id=963701910]
-offset_left = 172.0
-offset_right = 272.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -100.0
 offset_bottom = 31.0
+grow_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxFlat_r66lb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_1txc5")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ht1c8")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_g2jcq")
 theme_override_styles/focus = SubResource("StyleBoxFlat_u51tk")
-text = "Reset Player"
+text = "Kill Player"
 
 [connection signal="pressed" from="PauseMenu/Button" to="PauseMenu" method="_on_button_pressed"]
 [connection signal="pressed" from="PauseMenu/Button2" to="PauseMenu" method="_on_button_2_pressed"]

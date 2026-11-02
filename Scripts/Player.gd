@@ -51,7 +51,7 @@ func _ready():
 	# Wait for level scene to finish loading completely
 	await get_tree().process_frame
 	
-	# 1. Look for a WorldEnvironment node in the main level scene
+	# Look for a WorldEnvironment node in the main level scene
 	var world_env_node = get_tree().current_scene.find_child("WorldEnvironment", true, false)
 	
 	if world_env_node and world_env_node.environment:

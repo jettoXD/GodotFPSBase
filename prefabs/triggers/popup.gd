@@ -26,6 +26,7 @@ func _on_body_entered(body):
 		return
 		
 	if body is Player and body.has_method("show_popup"):
+		print("Calling popup: Player detected.")
 		has_triggered = true
 		body.show_popup(popup_text)
 		

@@ -4,6 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://cffj6bco1gqke" path="res://textures/kenney_crosshair-pack/PNG/Dark/crosshair-000.png" id="2_4dohe"]
 [ext_resource type="Script" uid="uid://bndoddmw7sbd8" path="res://Scripts/pause_menu.gd" id="3_r66lb"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbsxf"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0, 0, 0, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bmxkw"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fj7yv"]
@@ -72,6 +79,26 @@ subpixel_positioning = 0
 
 [node name="Player" type="CharacterBody3D" unique_id=624146296]
 script = ExtResource("1_4flbx")
+
+[node name="PopUp" type="CanvasLayer" parent="." unique_id=1097447371]
+visible = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PopUp" unique_id=308514092]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_kbsxf")
+bbcode_enabled = true
+text = "This is a popup"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=147121918]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0129052, 0)

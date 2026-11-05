@@ -6,12 +6,20 @@ extends Area3D
 @export var display_duration: float = 3.5 ## How many seconds the text stays on screen
 @export var trigger_only_once: bool = true ## If true, this zone self-destructs after the first use
 
+@export_group("Visual settings")
+@export var is_visible: bool = true # toggle visibility
+
+@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+
 # track if this zone has already been triggered (trigger once)
 var has_triggered: bool = false
 
 func _ready():
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	
+	if mesh_instance:
+		mesh_instance.visible = is_visible
 
 func _on_body_entered(body):
 	if has_triggered and trigger_only_once:

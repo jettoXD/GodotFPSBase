@@ -1,7 +1,11 @@
 extends CharacterBody3D
+class_name Player # added the classname Player for future use, easier to code.
 
 # for death...
 var is_frozen: bool = false
+
+# made a popup system so that the player can be instructed or given information.
+@onready var popup_label = $PopUp/RichTextLabel
 
 # to get the Health bar HUD working...
 @onready var bar_health: TextureProgressBar = $CanvasLayer/HUD/bar_health
@@ -269,3 +273,11 @@ func _die():
 	# push the player slightly so they aren't left standing.
 	rotation.z = deg_to_rad(75) # tip them over onto their side
 	velocity.y = -1.0           # tiny downward push to settle into the floor
+
+# Popup time
+func show_popup(text_to_show: String):
+	popup_label.text = text_to_show
+	popup_label.show()
+	
+func hide_popup():
+	popup_label.hide()

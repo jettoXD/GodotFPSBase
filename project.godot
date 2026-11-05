@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="EPQproject_SaveSystems"
+config/name="jettoXD_FPS_Base"
 run/main_scene="uid://dmjdqfv7o0cwr"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"

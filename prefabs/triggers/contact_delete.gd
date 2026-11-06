@@ -6,8 +6,15 @@ extends Area3D
 # The specific props that will be deleted when the target enters
 @export var objects_to_delete: Array[Node3D] = []
 
+@export_group("Visual settings")
+@export var is_visible: bool = true # toggle visibility
+@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	
+	if mesh_instance:
+		mesh_instance.visible = is_visible
 
 func _on_body_entered(body: Node3D) -> void:
 	# Check that a group name was actually typed

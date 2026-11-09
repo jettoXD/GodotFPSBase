@@ -120,6 +120,9 @@ target_position = Vector3(0, 0, -2)
 [node name="HoldPosition" type="Marker3D" parent="Head/Camera3D" unique_id=1484615705]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0006155968, -1.3248674)
 
+[node name="OffHandPosition" type="Marker3D" parent="Head/Camera3D" unique_id=1883509885]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5048473, -0.6291666, -0.51794183)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1005288767]
 
 [node name="HUD" type="Control" parent="CanvasLayer" unique_id=107648436]
@@ -204,6 +207,7 @@ WASD = Move
 MOUSE = Look
 SPACE = Jump
 E = Pickup a prop
+F = Offhand
 TAB = Pause"
 
 [node name="Button2" type="Button" parent="PauseMenu" unique_id=644662330]

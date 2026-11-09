@@ -13,7 +13,9 @@ var is_frozen: bool = false
 # to pick up stuff...
 @onready var raycast: RayCast3D = $Head/Camera3D/InteractionRay
 @onready var hold_position: Marker3D = $Head/Camera3D/HoldPosition
+@onready var offhand_position: Marker3D = $Head/Camera3D/OffHandPosition
 var held_object: RigidBody3D = null
+var offhand_object: RigidBody3D = null
 
 # The tutorial does not show how to add stats such as health.
 # I attempt to add this myself with documentation.
@@ -95,6 +97,12 @@ func _unhandled_input(event):
 			drop_cube()
 		else:
 			try_pickup_cube()
+			
+	if event.is_action_pressed("offhand"): # script for init the offhand pickup
+		if offhand_object:
+			drop_cube_offhand()
+		else:
+			try_pickup_cube_offhand()
 
 func try_pickup_cube() -> void:
 	# check if the raycast is hitting something
@@ -117,6 +125,29 @@ func try_pickup_cube() -> void:
 			held_object.position = Vector3.ZERO
 			held_object.rotation = Vector3.ZERO
 			
+func try_pickup_cube_offhand() -> void: # I'm reusing the code for the pickup but for offhand since all that really changes is the location of the prop.
+	# check if the raycast is hitting something
+	if raycast.is_colliding():
+		var collider = raycast.get_collider()
+		
+		# check the object is a RigidBody3D and belongs to the 'phys_prop' group
+		if collider is RigidBody3D and collider.is_in_group("phys_prop"):
+			offhand_object = collider
+			
+			# disable physics so it doesn't fall or collide with the player
+			offhand_object.freeze = true
+			offhand_object.collision_layer = 0
+			offhand_object.collision_mask = 0
+			offhand_object.gravity_scale = 0.0 # set the gravity to 0 so it doesn't fall.
+			
+			# parent it to the hold marker
+			offhand_object.get_parent().remove_child(offhand_object)
+			offhand_position.add_child(offhand_object)
+			
+			# snap position and rotation to the holding point
+			offhand_object.position = Vector3.ZERO
+			offhand_object.rotation = Vector3.ZERO
+
 func drop_cube() -> void:
 	if not held_object:
 		return
@@ -137,6 +168,29 @@ func drop_cube() -> void:
 	
 	# clear reference
 	held_object = null
+
+func drop_cube_offhand() -> void:
+	if not offhand_object:
+		return
+		
+	# store the current global position
+	var current_global_transform = offhand_object.global_transform
+	
+	# move the cube back to the root of scene
+	offhand_position.remove_child(offhand_object)
+	get_tree().current_scene.add_child(offhand_object)
+	
+	# restore its position in the world
+	offhand_object.global_transform = current_global_transform
+	
+	# turn physics back on
+	offhand_object.freeze = false
+	offhand_object.collision_layer = 1
+	offhand_object.collision_mask = 1
+	offhand_object.gravity_scale = 1.0 # gravity is reset so that the item does fall when not held.
+	
+	# clear reference
+	offhand_object = null
 
 func _physics_process(delta: float) -> void:
 	if is_frozen:

@@ -12,6 +12,13 @@ material = SubResource("StandardMaterial3D_bmxkw")
 
 [sub_resource type="Skin" id="Skin_r81tb"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2oy3"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0, 0, 0, 1)
+
 [node name="checkpoint" type="Area3D" unique_id=1940178038]
 script = ExtResource("1_l2oy3")
 
@@ -23,3 +30,23 @@ transparency = 0.5
 cast_shadow = 0
 mesh = SubResource("BoxMesh_bmxkw")
 skin = SubResource("Skin_r81tb")
+
+[node name="PopUp" type="CanvasLayer" parent="." unique_id=2019895674]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PopUp" unique_id=1327960355]
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 16
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_l2oy3")
+bbcode_enabled = true
+text = "This is a popup"
+horizontal_alignment = 1
+vertical_alignment = 1

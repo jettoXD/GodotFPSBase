@@ -5,6 +5,9 @@ extends Area3D
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
 
+# made a popup system so that the player can be instructed or given information.
+@onready var popup_label = $PopUp/RichTextLabel
+
 # Store the position where the player will respawn
 var spawn_position: Vector3
 
@@ -24,6 +27,7 @@ func _on_body_entered(body: Node3D) -> void:
 		
 		# Enable input processing so we can listen for key press
 		set_process_unhandled_input(true)
+		show_popup("Checkpoint set.")
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -54,3 +58,13 @@ func respawn_player(player: Player) -> void:
 		
 	# Hide popup
 	player.hide_popup()
+	
+# Notify the player that they reached... a... checkpoint...
+func show_popup(text_to_show: String):
+	popup_label.text = text_to_show
+	popup_label.show()
+	await get_tree().create_timer(1.0).timeout # One second
+	hide_popup()
+	
+func hide_popup():
+	popup_label.hide()

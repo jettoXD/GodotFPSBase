@@ -328,7 +328,7 @@ func _die():
 	rotation.z = deg_to_rad(75) # tip them over onto their side
 	velocity.y = -1.0           # tiny downward push to settle into the floor
 	
-	show_popup("Press TAB for options.")
+	show_popup("Press TAB for options. If a checkpoint is available, press any key.")
 
 # Popup time
 func show_popup(text_to_show: String):

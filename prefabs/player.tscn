@@ -81,6 +81,7 @@ subpixel_positioning = 0
 script = ExtResource("1_4flbx")
 
 [node name="PopUp" type="CanvasLayer" parent="." unique_id=1097447371]
+layer = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PopUp" unique_id=308514092]
 visible = false

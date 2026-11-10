@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://u1wxrnxl8ym4"]
+
+[ext_resource type="Script" uid="uid://d0gn8yeo5d70c" path="res://prefabs/triggers/checkpoint.gd" id="1_l2oy3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bmxkw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmxkw"]
+albedo_color = Color(0.8926301, 0.44166234, 0.75488067, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bmxkw"]
+material = SubResource("StandardMaterial3D_bmxkw")
+
+[sub_resource type="Skin" id="Skin_r81tb"]
+
+[node name="checkpoint" type="Area3D" unique_id=1940178038]
+script = ExtResource("1_l2oy3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=737110088]
+shape = SubResource("BoxShape3D_bmxkw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1444045209]
+transparency = 0.5
+cast_shadow = 0
+mesh = SubResource("BoxMesh_bmxkw")
+skin = SubResource("Skin_r81tb")
